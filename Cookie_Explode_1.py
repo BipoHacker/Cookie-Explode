@@ -6,11 +6,11 @@ from os import listdir
 from os.path import isfile, join
 #Importamos todas las librerias que necesitamos
 pygame.font.init()
-#Hacemos esto para poder usatr texto en pygame
+#Hacemos esto para poder usar texto en pygame
 
 WIDTH, HEIGHT = 800, 600
 #Estas 2 variables representan la altura y la anchura (Las usaremos para la ventana, pero tambien podriamos utilizarlas para mas cosas)
-#Las colocamos en mayusculas porque su valor no cambiara 
+#Las colocamos en mayusculas porque su valor no cambiara (Constantes)
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 #Esta funcion de pygame se usa para crear una ventana
 pygame.display.set_caption("Cookie Explode")
@@ -70,7 +70,7 @@ def draw(player, elapsed_time, stars, healers, bullets, life, level_type, bullet
         pygame.draw.rect(WIN, BLACK, bullet)
 
     pygame.display.update()
-    #Esto hace que los dibujes se limpien y no se acumulen
+    #Esto hace que los dibujos se limpien y no se acumulen
     
 def menu():
     options = ["Jugar", "Niveles", "Salir"]
@@ -200,14 +200,14 @@ def main(level_time, level_difficulty, level_type):
         #Start_time representa el tiempo en el que se empezo el juego y time.time el tiempo actual
 
         if projectile_count > projectile_add_increment:
-        #Si el número de estrellas (projectile_count) es mayor que el incremento de estrellas (projectile_add_increment), entonces se ejecutará el siguiente bloque de código:
+        #Si el numero de estrellas (projectile_count) es mayor que el incremento de estrellas (projectile_add_increment), entonces se ejecutará el siguiente bloque de codigo:
             for _ in range(level_difficulty):
-                #Se ejecutará un bucle 3 veces:
+                #Se ejecutara un bucle 3 veces:
                 star_x = random.randint(0, WIDTH - PROJECTILE_WIDTH)
-                #Se genera una posición aleatoria en el eje X para la estrella, dentro del ancho de la pantalla
+                #Se genera una posicion aleatoria en el eje X para la estrella, dentro del ancho de la pantalla
                 star = pygame.Rect(star_x, -PROJECTILE_HEIGHT,
                                PROJECTILE_WIDTH, PROJECTILE_HEIGHT)
-                #Se crea un objeto Rect (rectángulo) que representa la estrella, con la posición aleatoria en X y una posición inicial en Y fuera de la pantalla (-PROYECTILE_HEIGHT)
+                #Se crea un objeto Rect (rectángulo) que representa la estrella, con la posicion aleatoria en X y una posicion inicial en Y fuera de la pantalla (-PROYECTILE_HEIGHT)
                 stars.append(star)
                 #Se agrega la estrella a la lista de estrellas (stars)
             if projectile_count % 10 == 0:
@@ -330,6 +330,6 @@ def main(level_time, level_difficulty, level_type):
     pygame.quit()
 
 if __name__ == "__main__":
-    #Se asegura de que el archivo se esté ejecutando directamente en lugar de ser importado como un módulo
+    #Se asegura de que el archivo se esté ejecutando directamente en lugar de ser importado como un modulo
     menu()  
-    #Llama a la función main
+    #Llama a la funcion main
