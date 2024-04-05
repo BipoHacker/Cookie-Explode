@@ -16,7 +16,7 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Cookie Explode")
 #Esta funcion de pygame se usa para darle un nombre a la ventana 
 
-BG = pygame.transform.scale(pygame.image.load(join("Cookie Explode","assets","Background","cocina.jpeg")), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load(join("Cookie Explode","assets","Background","kitchen.jpeg")), (WIDTH, HEIGHT))
 #Define el fondo y lo escala para que cuadre con la ventana
 #Coloca la direccion de archivo deseada
 
