@@ -5,20 +5,25 @@ import random
 from os import listdir
 from os.path import isfile, join
 #Importamos todas las librerias que necesitamos
-pygame.font.init()
-#Hacemos esto para poder usar texto en pygame
+pygame.init()
+#Hacemos esto para poder usatr texto en pygame
+
+'''
+info = pygame.display.Info()
+WIDTH = info.current_w
+HEIGHT = info.current_h
+'''
 
 WIDTH, HEIGHT = 800, 600
 #Estas 2 variables representan la altura y la anchura (Las usaremos para la ventana, pero tambien podriamos utilizarlas para mas cosas)
-#Las colocamos en mayusculas porque su valor no cambiara (Constantes)
+#Las colocamos en mayusculas porque su valor no cambiara 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 #Esta funcion de pygame se usa para crear una ventana
 pygame.display.set_caption("Cookie Explode")
 #Esta funcion de pygame se usa para darle un nombre a la ventana 
-
-BG = pygame.transform.scale(pygame.image.load(join("Cookie Explode","assets","Background","kitchen.jpeg")), (WIDTH, HEIGHT))
+pygame.display.set_icon(pygame.image.load("Cookie Explode/assets/logo.ico"))
+BG = pygame.transform.scale(pygame.image.load(("Cookie Explode/assets/Background/cocina.jpeg")), (WIDTH, HEIGHT))
 #Define el fondo y lo escala para que cuadre con la ventana
-#Coloca la direccion de archivo deseada
 
 PLAYER_WIDTH = 40
 PLAYER_HEIGHT = 60
@@ -70,13 +75,13 @@ def draw(player, elapsed_time, stars, healers, bullets, life, level_type, bullet
         pygame.draw.rect(WIN, BLACK, bullet)
 
     pygame.display.update()
-    #Esto hace que los dibujos se limpien y no se acumulen
+    #Esto hace que los dibujes se limpien y no se acumulen
     
 def menu():
     options = ["Jugar", "Niveles", "Salir"]
     selected_option = 0
     level_time = 0
-    level_difficulty = 2
+    level_difficulty = WIDTH // 400
     level_type = 0
     
     menu_run = True
@@ -93,7 +98,7 @@ def menu():
                     if selected_option == 0:
                         main(level_time, level_difficulty, level_type)
                     elif selected_option == 1:
-                        levels()
+                        levels(level_difficulty, level_time, level_type)
                     elif selected_option == 2:
                         menu_run = False
 
@@ -111,12 +116,9 @@ def menu():
 
     pygame.quit()
     
-def levels():
+def levels(level_difficulty, level_time, level_type):
     levels = ["Nivel 1", "Nivel 2", "Nivel 3", "Volver"]
     selected_level = 0
-    level_time = 0
-    level_difficulty = 2
-    level_type = 0
     
     levels_run = True
     while levels_run:
@@ -200,14 +202,14 @@ def main(level_time, level_difficulty, level_type):
         #Start_time representa el tiempo en el que se empezo el juego y time.time el tiempo actual
 
         if projectile_count > projectile_add_increment:
-        #Si el numero de estrellas (projectile_count) es mayor que el incremento de estrellas (projectile_add_increment), entonces se ejecutará el siguiente bloque de codigo:
+        #Si el número de estrellas (projectile_count) es mayor que el incremento de estrellas (projectile_add_increment), entonces se ejecutará el siguiente bloque de código:
             for _ in range(level_difficulty):
-                #Se ejecutara un bucle 3 veces:
+                #Se ejecutará un bucle 3 veces:
                 star_x = random.randint(0, WIDTH - PROJECTILE_WIDTH)
-                #Se genera una posicion aleatoria en el eje X para la estrella, dentro del ancho de la pantalla
+                #Se genera una posición aleatoria en el eje X para la estrella, dentro del ancho de la pantalla
                 star = pygame.Rect(star_x, -PROJECTILE_HEIGHT,
                                PROJECTILE_WIDTH, PROJECTILE_HEIGHT)
-                #Se crea un objeto Rect (rectángulo) que representa la estrella, con la posicion aleatoria en X y una posicion inicial en Y fuera de la pantalla (-PROYECTILE_HEIGHT)
+                #Se crea un objeto Rect (rectángulo) que representa la estrella, con la posición aleatoria en X y una posición inicial en Y fuera de la pantalla (-PROYECTILE_HEIGHT)
                 stars.append(star)
                 #Se agrega la estrella a la lista de estrellas (stars)
             if projectile_count % 10 == 0:
@@ -217,7 +219,7 @@ def main(level_time, level_difficulty, level_type):
                     healer = pygame.Rect(healer_x, -PROJECTILE_HEIGHT,
                                    PROJECTILE_WIDTH, PROJECTILE_HEIGHT)
                     healers.append(healer)
-            projectile_add_increment = max(200, projectile_add_increment - 50)
+            projectile_add_increment = max(WIDTH / 4, projectile_add_increment - 50)
             #Se actualiza el valor de projectile_add_increment, tomando el máximo entre 200 y el valor actual menos 50.
             #Esto hace que el incremento de estrellas se reduzca con el tiempo.
             projectile_count = 0
@@ -330,6 +332,6 @@ def main(level_time, level_difficulty, level_type):
     pygame.quit()
 
 if __name__ == "__main__":
-    #Se asegura de que el archivo se esté ejecutando directamente en lugar de ser importado como un modulo
+    #Se asegura de que el archivo se esté ejecutando directamente en lugar de ser importado como un módulo
     menu()  
-    #Llama a la funcion main
+    #Llama a la función main
